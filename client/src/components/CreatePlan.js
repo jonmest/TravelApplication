@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const AddPlan = () => {
   const [location, setLocation] = useState("");
@@ -23,8 +25,8 @@ const AddPlan = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       }).then(() => {
-        window.location.href = '/'
-      })
+        window.location.href = "/";
+      });
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -65,17 +67,26 @@ const AddPlan = () => {
                 onChange={(e) => setLocation(e.target.value)}
               ></input>
               Start Date
-              <input
-                type="text"
-                className="form-control"
-                onChange={(e) => setStart(e.target.value)}
-              ></input>
+              <div>
+                <DatePicker
+                  name="datetime"
+                  className={"form-control"}
+                  selected={start}
+                  onChange={(date) => setStart(date)}
+                  dateFormat="MM-dd-yyyy"
+                />
+                {""}
+              </div>
               End Date
-              <input
-                type="text"
-                className="form-control"
-                onChange={(e) => setEnd(e.target.value)}
-              ></input>
+              <div>
+                <DatePicker
+                  name="datetime"
+                  className={"form-control"}
+                  selected={end}
+                  onChange={(date) => setEnd(date)}
+                  dateFormat="MM-dd-yyyy"
+                />
+              </div>
               Title
               <input
                 type="text"
