@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react"
-import { Button, Card, Collapse, Row, Col, ButtonGroup } from 'react-bootstrap'
+import { Button, Card, Collapse, Row, Col, ButtonGroup, Table } from 'react-bootstrap'
 import EditPlan from "../EditPlan"
 import ShowPlan from "../ShowPlan"
 
 const PlanItem = plan => {
-    const { id, title, description, country, start_date, end_date } = plan
+    const { id, title, description, country, start_date, end_date, currency, exc_rate } = plan
     const [open, setOpen] = useState(false)
 
     const deletePlan = id => {
@@ -35,6 +35,20 @@ const PlanItem = plan => {
                 </Row>
                 <Collapse in={open}>
                     <div id="example-collapse-text">
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>Country's currency</th>
+                                    <th>How many Big Macs do you get for $50?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> {currency ? currency : "Unknown"}</td>
+                                    <td>{exc_rate ? exc_rate : "Unknown"}</td>
+                                </tr>
+                            </tbody>
+                        </Table>
                         <p>
                             Planned experiences:
                         </p>
@@ -51,8 +65,18 @@ const PlanItem = plan => {
                                                     </Card.Text>
                                                 </Col>
                                                 <Col>
-                                                    <p><small>Starts:  {new Date(experience.start_datetime).toLocaleDateString()}</small> <br />
-                                                        <small>Ends:  {new Date(experience.end_datetime).toLocaleDateString()}</small></p>
+                                                    <p>
+                                                        <small>
+                                                            Starts:
+                                                            {new Date(experience.start_datetime).toLocaleDateString() + " "}
+                                                            {new Date(experience.start_datetime).toLocaleTimeString()}
+                                                        </small> <br />
+                                                        <small>
+                                                            Ends:
+                                                            {new Date(experience.end_datetime).toLocaleDateString() + " "}
+                                                            {new Date(experience.end_datetime).toLocaleTimeString()}
+                                                        </small>
+                                                    </p>
                                                 </Col>
                                             </Row>
                                         </Card.Body>

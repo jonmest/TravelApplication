@@ -28,8 +28,8 @@ const queryFactory = obj => {
 
 const getPlan = async (req, res) => {
     const allPlans = (req.query.country) ?
-        await pool.query('SELECT * FROM plan INNER JOIN country ON (plan.country = country.country_code) WHERE (country = $1 OR name LIKE $2)', [req.query.country.toUpperCase(), "%" + req.query.country + "%"]) :
-        await pool.query('SELECT * FROM plan')
+        await pool.query('SELECT * FROM detailed_plan WHERE (country = $1 OR name LIKE $2)', [req.query.country.toUpperCase(), "%" + req.query.country + "%"]) :
+        await pool.query('SELECT * FROM detailed_plan')
 
     const plans = []
     for (const plan of allPlans.rows) {

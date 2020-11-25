@@ -9,7 +9,7 @@ def create_tables(cur):
     plan_query = "CREATE TABLE  IF NOT EXISTS plan (id SERIAL NOT NULL PRIMARY KEY UNIQUE, country VARCHAR(3) NOT NULL references country(country_code), start_date DATE NOT NULL, end_date DATE NOT NULL, title VARCHAR(200) NOT NULL, description VARCHAR(9999) NOT NULL, location VARCHAR(200) NOT NULL);"
     experience_query = "CREATE TABLE IF NOT EXISTS experience (id SERIAL NOT NULL PRIMARY KEY, start_datetime timestamp NOT NULL, end_datetime timestamp NOT NULL, title VARCHAR(200) NOT NULL, description VARCHAR(9999) NOT NULL, plan INTEGER NOT NULL REFERENCES plan(id) ON DELETE CASCADE);"
     country_query = "CREATE TABLE IF NOT EXISTS country (country_code VARCHAR(10) NOT NULL PRIMARY KEY, name VARCHAR(100) NOT NULL UNIQUE);"
-    bigmac_query = "CREATE TABLE IF NOT EXISTS bigmac (country_code VARCHAR(10) NOT NULL, exc_rate FLOAT NOT NULL, currency VARCHAR(10) NOT NULL);"
+    bigmac_query = "CREATE TABLE IF NOT EXISTS bigmac (country_code VARCHAR(10) NOT NULL PRIMARY KEY UNIQUE, exc_rate FLOAT NOT NULL, currency VARCHAR(10) NOT NULL);"
     continent_query = "CREATE TABLE IF NOT EXISTS continents (name VARCHAR(20) NOT NULL PRIMARY KEY)"
 
     cur.execute(country_query)
