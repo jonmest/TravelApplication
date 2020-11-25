@@ -22,7 +22,9 @@ const AddPlan = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
-      });
+      }).then(() => {
+        window.location.href = '/'
+      })
       console.log(response);
     } catch (error) {
       console.log(error);

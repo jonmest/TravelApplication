@@ -1,43 +1,33 @@
-import { json } from "body-parser";
-import React, { Fragment, useEffect, useState } from "react";
-import EditPlan from "./EditPlan";
-import ShowPlan from "./ShowPlan";
+import React, { Fragment, useEffect, useState } from "react"
+import EditPlan from "./EditPlan"
+import ShowPlan from "./ShowPlan"
+import PlanItem from './plan/PlanItem'
+import { CardGroup } from 'react-bootstrap';
+
 const ListPlans = () => {
-  const [plans, setPlans] = useState([]);
-  const [experience, setExperience] = useState([]);
+  const [plans, setPlans] = useState([])
+  const [experience, setExperience] = useState([])
 
-  const getPlans = async () => {
-    const response = await fetch("http://localhost:8080/plan");
-    const jsonData = await response.json();
-    console.log(jsonData[0].experiences[0].description);
-    setPlans(jsonData);
-  };
+  const getPlans = search => {
+    const query = search ? `http://localhost:8080/plan?country=${search}` : "http://localhost:8080/plan"
+    fetch(query)
+      .then(r => r.json())
+      .then(data => setPlans(data))
+  }
 
-  const getPlansBySearch = async (search) => {
-    const response = await fetch(
-      `http://localhost:8080/plan?country=${search}`
-    );
-    const jsonData = await response.json();
-    setPlans(jsonData);
-  };
+  const getExperiences = search => {
+    const query = search ? `http://localhost:8080/experience${search}` : "http://localhost:8080/experience"
+    fetch(query)
+      .then(r => r.json())
+      .then(data => setExperience(data))
+  }
 
-  const getExperiences = async (search) => {
-    const response = await fetch(`http://localhost:8080/experience${search}`);
-    const jsonData = await response.json();
-    setExperience(jsonData);
-  };
-
-  const deletePlan = async (id) => {
-    const deletePlan = await fetch(`http://localhost:8080/plan/${id}`, {
-      method: "DELETE",
-    });
-    window.location.href = "/";
-  };
 
   useEffect(() => {
-    getPlans();
-    getExperiences();
-  }, []);
+    getPlans()
+    getExperiences()
+  }, [])
+
   return (
     <div class="container">
       <div>
@@ -46,9 +36,13 @@ const ListPlans = () => {
           type="text"
           placeholder="Search"
           aria-label="Search"
-          onChange={(e) => getPlansBySearch(e.target.value)}
+          onChange={(e) => getPlans(e.target.value)}
+          style={{ marginBottom: "2rem" }}
         />
       </div>
+      {plans.map((plan) => (
+        <PlanItem {...plan} />
+      ))}
       <div className="plan"></div>
       <table className="table mt-5 text-center">
         <thead>
@@ -64,34 +58,7 @@ const ListPlans = () => {
             <th>Expand</th>
           </tr>
         </thead>
-        <tbody>
-          {plans.map((plan) => (
-            <tr key={plan.id}>
-              <td>{plan.id}</td>
-              <td>{plan.title}</td>
-              <td>{plan.description}</td>
-              <td>{plan.country}</td>
-              <td>{plan.start_date}</td>
-              <td>{plan.end_date}</td>
-              {console.log({ plan })}
-              <td>
-                <EditPlan plan={plan}></EditPlan>
-              </td>
-              <td>
-                <button
-                  className="brn btn-danger"
-                  onClick={() => deletePlan(plan.id)}
-                >
-                  Delete
-                </button>
-              </td>
-              <td>
-                {" "}
-                <ShowPlan props={plan}></ShowPlan>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+
 
         <h1>EXPERIENCES NO IDEA</h1>
         <tbody>

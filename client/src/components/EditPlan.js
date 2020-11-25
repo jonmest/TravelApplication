@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 const EditPlan = ({ plan }) => {
   const [description, setDescription] = useState(plan.description);
   const [title, setTitle] = useState(plan.title);
@@ -23,10 +23,10 @@ const EditPlan = ({ plan }) => {
   };
 
   return (
-    <div class="container">
+    <Fragment>
       <button
         type="button"
-        class="btn btn-warning"
+        class="btn btn-info"
         data-toggle="modal"
         data-target={`#a${plan.id}`}
       >
@@ -90,7 +90,7 @@ const EditPlan = ({ plan }) => {
           </div>
         </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 
