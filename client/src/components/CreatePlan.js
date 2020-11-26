@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -9,6 +9,7 @@ const AddPlan = () => {
   const [country, setCountry] = useState("");
   const [start, setStart] = useState(null);
   const [end, setEnd] = useState(null);
+  const [allCountries, setAllCountries] = useState(null);
 
   const createPlan = async (e) => {
     try {
@@ -33,6 +34,17 @@ const AddPlan = () => {
     }
   };
 
+  const getAllCountries = () => {
+    const query = `http://localhost:8080/country`;
+    fetch(query)
+      .then((r) => r.json())
+      .then((data) => setAllCountries(data));
+  };
+
+  useEffect(() => {
+    getAllCountries();
+  }, []);
+
   return (
     <div className="mt-5 text-center">
       <button
@@ -55,11 +67,21 @@ const AddPlan = () => {
             </div>
             <div class="modal-body">
               Country
-              <input
-                type="text"
-                className="form-control"
-                onChange={(e) => setCountry(e.target.value)}
-              ></input>
+              <div>
+                {/* <select
+                  type="text"
+                  name="field3"
+                  class="field-style field-full align-none"
+                  placeholder="Continent"
+                  // onClick={(e) => setContinent(e.target.value)}
+                > */}
+                {allCountries.map((e) => {
+                  // console.log(e.name);
+                  // <option value="Africa">e.name</option>;
+                  <p>{e.country_code}</p>;
+                })}
+                {/* </select> */}
+              </div>
               Location
               <input
                 type="text"
