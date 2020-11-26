@@ -68,19 +68,18 @@ const AddPlan = () => {
             <div class="modal-body">
               Country
               <div>
-                {/* <select
+                <select
                   type="text"
                   name="field3"
                   class="field-style field-full align-none"
                   placeholder="Continent"
-                  // onClick={(e) => setContinent(e.target.value)}
-                > */}
-                {allCountries.map((e) => {
-                  // console.log(e.name);
-                  // <option value="Africa">e.name</option>;
-                  <p>{e.country_code}</p>;
-                })}
-                {/* </select> */}
+                  onSubmit={(e) => setCountry(e.target.value)}
+                  required
+                >
+                  {allCountries && allCountries.map((country) => (
+                    <option value={country.country_code}>{country.name}</option>
+                  ))}
+                </select>
               </div>
               Location
               <input
