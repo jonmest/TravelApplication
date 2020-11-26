@@ -46,7 +46,7 @@ const AddPlan = () => {
   }, []);
 
   return (
-    <div className="mt-5 text-center">
+    <div className="mt-5 text-center mb-5">
       <button
         type="button"
         class="btn btn-primary"
