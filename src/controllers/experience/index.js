@@ -7,6 +7,16 @@ const getExperience = async (req, res) => {
     res.json(allExperiences)
 }
 
+const postExperience = async (req, res) => {
+    const { title, description, start_datetime, end_datetime, plan } = req.body
+    pool.query(
+        "INSERT INTO experience(start_datetime, end_datetime, title, description, plan) VALUES ($1, $2, $3, $4, (SELECT id FROM plan WHERE id = $5)) ON CONFLICT DO NOTHING",
+        [start_datetime, end_datetime, title, description, plan]
+    )
+    res.json({ success: true })
+}
+
 module.exports = {
-    getExperience
+    getExperience,
+    postExperience
 }

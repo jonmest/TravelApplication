@@ -1,9 +1,12 @@
 import React, { useState, Fragment } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 const EditPlan = ({ plan }) => {
   const [description, setDescription] = useState(plan.description);
   const [title, setTitle] = useState(plan.title);
-  const [start, setStart] = useState(plan.start_date);
-  const [end, setEnd] = useState(plan.end_date);
+  const [start, setStart] = useState(new Date(plan.start_date));
+  const [end, setEnd] = useState(new Date(plan.end_date));
 
   const updateDescription = async (e) => {
     e.preventDefault();
@@ -59,19 +62,21 @@ const EditPlan = ({ plan }) => {
                 onChange={(e) => setDescription(e.target.value)}
               ></input>
               Do you want to change the start date?
-              <input
-                type="text"
-                className="form-control"
-                value={start}
-                onChange={(e) => setStart(e.target.value)}
-              ></input>
+              <DatePicker
+                name="datetime"
+                className={"form-control"}
+                selected={start}
+                onChange={(date) => setStart(date)}
+                dateFormat="MM-dd-yyyy"
+              />
               Do you want to change the end date?
-              <input
-                type="text"
-                className="form-control"
-                value={end}
-                onChange={(e) => setEnd(e.target.value)}
-              ></input>
+              <DatePicker
+                name="datetime"
+                className={"form-control"}
+                selected={start}
+                onChange={(date) => setEnd(date)}
+                dateFormat="MM-dd-yyyy"
+              />
             </div>
 
             <div class="modal-footer">

@@ -13,6 +13,7 @@ router.route('/plan')
 
 router.route('/experience')
     .get(controllers.experience.getExperience)
+    .post(controllers.experience.postExperience)
 
 router.route('/country')
     .get(controllers.country.getCountry)

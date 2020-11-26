@@ -5,7 +5,7 @@ import ShowPlan from "../ShowPlan"
 import AddExperience from '../AddExperience'
 
 const PlanItem = plan => {
-    const { id, title, description, country, start_date, end_date, currency, exc_rate } = plan
+    const { id, name, title, description, country, start_date, end_date, currency, exc_rate } = plan
     const [open, setOpen] = useState(false)
 
     const deletePlan = id => {
@@ -20,7 +20,7 @@ const PlanItem = plan => {
     }
     return (
         <Card style={{ marginBottom: "1rem" }}>
-            <Card.Header>{country}</Card.Header>
+            <Card.Header>{name}</Card.Header>
             <Card.Body>
                 <Card.Title>{title}</Card.Title>
                 <Row>
