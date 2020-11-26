@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from "react"
 import { Button, Card, Collapse, Row, Col, ButtonGroup, Table } from 'react-bootstrap'
 import EditPlan from "../EditPlan"
 import ShowPlan from "../ShowPlan"
+import AddExperience from '../AddExperience'
 
 const PlanItem = plan => {
     const { id, title, description, country, start_date, end_date, currency, exc_rate } = plan
@@ -50,7 +51,8 @@ const PlanItem = plan => {
                             </tbody>
                         </Table>
                         <p>
-                            Planned experiences:
+                            Planned experiences:<br></br>
+                            <AddExperience plan={plan} />
                         </p>
                         {
                             plan.experiences.length == 0 ?

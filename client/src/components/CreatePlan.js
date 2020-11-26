@@ -6,7 +6,7 @@ const AddPlan = () => {
   const [location, setLocation] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState("AFG");
   const [start, setStart] = useState(null);
   const [end, setEnd] = useState(null);
   const [allCountries, setAllCountries] = useState(null);
@@ -72,8 +72,9 @@ const AddPlan = () => {
                   type="text"
                   name="field3"
                   class="field-style field-full align-none"
-                  placeholder="Continent"
-                  onSubmit={(e) => setCountry(e.target.value)}
+                  placeholder="Country"
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
                   required
                 >
                   {allCountries && allCountries.map((country) => (
@@ -124,6 +125,9 @@ const AddPlan = () => {
                   onChange={(e) => setDescription(e.target.value)}
                 ></textarea>
               </div>{" "}
+
+
+
             </div>
 
             <div class="modal-footer">
