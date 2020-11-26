@@ -77,9 +77,12 @@ const AddPlan = () => {
                   onChange={(e) => setCountry(e.target.value)}
                   required
                 >
-                  {allCountries && allCountries.map((country) => (
-                    <option value={country.country_code}>{country.name}</option>
-                  ))}
+                  {allCountries &&
+                    allCountries.map((country) => (
+                      <option value={country.country_code}>
+                        {country.name}
+                      </option>
+                    ))}
                 </select>
               </div>
               Location
@@ -125,9 +128,6 @@ const AddPlan = () => {
                   onChange={(e) => setDescription(e.target.value)}
                 ></textarea>
               </div>{" "}
-
-
-
             </div>
 
             <div class="modal-footer">
