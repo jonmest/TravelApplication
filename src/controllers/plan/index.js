@@ -31,6 +31,11 @@ const getPlan = async (req, res) => {
         await pool.query('SELECT * FROM detailed_plan WHERE (country = $1 OR name LIKE $2)', [req.query.country.toUpperCase(), "%" + req.query.country + "%"]) :
         await pool.query('SELECT * FROM detailed_plan')
 
+    const count = (req.query.country) ?
+        await pool.query('SELECT COUNT(*) FROM detailed_plan WHERE (country = $1 OR name LIKE $2)', [req.query.country.toUpperCase(), "%" + req.query.country + "%"])
+            .then(res => res.rows[0].count) :
+        await pool.query('SELECT COUNT(*) FROM detailed_plan').then(res => res.rows[0].count)
+
     const plans = []
     for (const plan of allPlans.rows) {
         const planExperiences = await pool.query('SELECT * FROM experience WHERE (plan = $1)', [plan.id]).then(res => res.rows)
@@ -38,7 +43,7 @@ const getPlan = async (req, res) => {
         plans.push(plan)
     }
 
-    res.json(plans)
+    res.json({ plans, count })
 }
 
 const postPlan = async (req, res) => {

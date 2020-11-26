@@ -6,7 +6,7 @@ import { CardGroup } from "react-bootstrap";
 
 const ListPlans = () => {
   const [plans, setPlans] = useState([]);
-  const [experience, setExperience] = useState([]);
+  const [count, setCount] = useState(0);
 
   const getPlans = (search) => {
     const query = search
@@ -14,21 +14,15 @@ const ListPlans = () => {
       : "http://localhost:8080/plan";
     fetch(query)
       .then((r) => r.json())
-      .then((data) => setPlans(data));
-  };
-
-  const getExperiences = (search) => {
-    const query = search
-      ? `http://localhost:8080/experience${search}`
-      : "http://localhost:8080/experience";
-    fetch(query)
-      .then((r) => r.json())
-      .then((data) => setExperience(data));
+      .then((data) => {
+        console.log(data)
+        setPlans(data.plans)
+        setCount(data.count)
+      });
   };
 
   useEffect(() => {
     getPlans();
-    getExperiences();
   }, []);
 
   return (
@@ -43,6 +37,7 @@ const ListPlans = () => {
           style={{ marginBottom: "2rem" }}
         />
       </div>
+      <h1>There are currently {count} plans</h1>
       {plans.map((plan) => (
         <PlanItem {...plan} />
       ))}
