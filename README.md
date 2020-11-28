@@ -1,4 +1,4 @@
-# Database Design - Assignment 3 2DV513
+# Database Design - Assignment 3
 
 # Task 1:
 
