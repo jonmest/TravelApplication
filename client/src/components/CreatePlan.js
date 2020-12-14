@@ -98,12 +98,13 @@ const AddPlan = () => {
                   name="datetime"
                   className={"form-control"}
                   selected={start}
-                  onChange={(date) =>
+                  onChange={(date) => {
                     setStart(
                       new Date(
                         date.getTime() - date.getTimezoneOffset() * 60000
                       )
                     )
+                  }
                   }
                   dateFormat="MM-dd-yyyy"
                   utcOffset={0}
@@ -117,12 +118,13 @@ const AddPlan = () => {
                   name="datetime"
                   className={"form-control"}
                   selected={end}
-                  onChange={(date) =>
+                  onChange={(date) => {
                     setEnd(
                       new Date(
                         date.getTime() - date.getTimezoneOffset() * 60000
                       )
                     )
+                  }
                   }
                   dateFormat="MM-dd-yyyy"
                 />

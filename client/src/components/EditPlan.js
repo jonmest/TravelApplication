@@ -67,7 +67,13 @@ const EditPlan = ({ plan }) => {
                 name="datetime"
                 className={"form-control"}
                 selected={start}
-                onChange={(date) => setStart(date)}
+                onChange={(date) => {
+                  setStart(
+                    new Date(
+                      date.getTime() - date.getTimezoneOffset() * 60000
+                    )
+                  )
+                }}
                 dateFormat="MM-dd-yyyy"
               /><br></br>
               Do you want to change the end date?
@@ -75,7 +81,13 @@ const EditPlan = ({ plan }) => {
                 name="datetime"
                 className={"form-control"}
                 selected={end}
-                onChange={(date) => setEnd(date)}
+                onChange={(date) => {
+                  setEnd(
+                    new Date(
+                      date.getTime() - date.getTimezoneOffset() * 60000
+                    )
+                  )
+                }}
                 dateFormat="MM-dd-yyyy"
               />
             </div>
