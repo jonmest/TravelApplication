@@ -19,7 +19,6 @@ Imagine you're 20-something years old, just finished school. Before work, you mi
 - The user should be able to make filtered search queries and the application will display travel plans that match the query.
 - The user should also be able to browse a discovery section without having to search for anything,
 - The user should also be able to create its own travel plans using relevant and necessary information.
-- The user should be able to view countries without travel plans to view the countries Big Mac Index.
 <div style='page-break-after: always;'></div>
 
 # Task 2
