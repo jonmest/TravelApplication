@@ -15,9 +15,10 @@ const EditPlan = ({ plan }) => {
       const response = await fetch(`http://localhost:8080/plan/${plan.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        body: JSON.stringify({
+          title, description, start_date: start, end_date: end
+        }),
       });
-      console.log(body);
     } catch (error) {
       console.log(error);
     }
@@ -68,12 +69,12 @@ const EditPlan = ({ plan }) => {
                 selected={start}
                 onChange={(date) => setStart(date)}
                 dateFormat="MM-dd-yyyy"
-              />
+              /><br></br>
               Do you want to change the end date?
               <DatePicker
                 name="datetime"
                 className={"form-control"}
-                selected={start}
+                selected={end}
                 onChange={(date) => setEnd(date)}
                 dateFormat="MM-dd-yyyy"
               />

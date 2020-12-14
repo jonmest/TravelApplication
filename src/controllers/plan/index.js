@@ -91,6 +91,8 @@ const updateOnePlan = async (req, res) => {
 
     queryValues.push(id)
     const finalQuery = `UPDATE plan SET ${partialQuery} WHERE id = $${argumentCount + 1}`
+    console.log(finalQuery)
+    console.log(queryValues)
     await pool.query(finalQuery, queryValues)
 
     if (Array.isArray(updatedPlan.experiences)) {
