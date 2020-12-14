@@ -1,4 +1,7 @@
 # Database Design - Assignment 3
+### Video demonstration of application:
+
+[![Thumbnail för videodemonstration](https://img.youtube.com/vi/FeLUBtPF8js/0.jpg)](https://www.youtube.com/watch?v=FeLUBtPF8js)
 
 # Task 1:
 
