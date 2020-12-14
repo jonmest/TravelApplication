@@ -1,7 +1,10 @@
 # Database Design - Assignment 3
+
 ### Video demonstration of application:
 
 [![Thumbnail för videodemonstration](https://img.youtube.com/vi/FeLUBtPF8js/0.jpg)](https://www.youtube.com/watch?v=FeLUBtPF8js)
+
+<div style='page-break-after: always;'></div>
 
 # Task 1:
 
@@ -17,7 +20,6 @@ Imagine you're 20-something years old, just finished school. Before work, you mi
 - The user should also be able to browse a discovery section without having to search for anything,
 - The user should also be able to create its own travel plans using relevant and necessary information.
 - The user should be able to view countries without travel plans to view the countries Big Mac Index.
-
 <div style='page-break-after: always;'></div>
 
 # Task 2
@@ -107,25 +109,29 @@ CREATE TABLE IF NOT EXISTS bigmac (
 The queries are baked into the code related to the application as a whole. So, we will first show the query in isolation, but also in its context if deemed necessary.
 
 We want to get all available information about one or more plans. To achieve this, we first create a new view:
+
 ```sql
 CREATE VIEW detailed_plan AS
 SELECT (id, country, start_date, end_date, title, description, location, country.country_code, exc_rate, currency, name) FROM (plan  AS z FULL OUTER JOIN bigmac ON (z.country = bigmac.country_code)) AS x INNER JOIN country ON (x.country = country.country_code);
 ```
 
 And here is a sample query which we could use in our application:
+
 ```SQL
 SELECT * FROM detailed_plan;
 /* Or */
 SELECT * FROM detailed_plan WHERE (country = 'SWE' OR name LIKE '%Swe%');
 ```
+
 In the context of our application:
+
 ```javascript
 const allPlans = req.query.country
   ? await pool.query(
-      'SELECT * FROM detailed_plan WHERE (country = $1 OR name LIKE $2)',
-      [req.query.country.toUpperCase(), '%' + req.query.country + '%']
+      "SELECT * FROM detailed_plan WHERE (country = $1 OR name LIKE $2)",
+      [req.query.country.toUpperCase(), "%" + req.query.country + "%"]
     )
-  : await pool.query('SELECT * FROM detailed_plan');
+  : await pool.query("SELECT * FROM detailed_plan");
 ```
 
 Here, `req.query.country` is a search the user is doing for a country. Maybe the have input the country's abbreviated country code, or its full name, which is why we are looking at both columns in the first query.
@@ -136,7 +142,10 @@ Based on the design of our API, we do not return a Plan's related Experience's i
 SELECT * FROM experience WHERE (plan = 32); /* Or whatever ID you're looking for*/
 ```
 
+<div style='page-break-after: always;'></div>
+
 We also want to be able to add a new Plan. This is done like so:
+
 ```sql
 INSERT INTO plan (location, country, start_date, end_date, title, description)
 VALUES ('My location', 'SWE', '2020-02-21', '2020-02-28', 'My amazing vacation', 'We'll go bathing!');
@@ -172,6 +181,7 @@ UPDATE experience SET title = 'My new updated experience title' WHERE id = 23;
 ```
 
 Finally, if you change your mind about going for vacation, you can simply delete your travel plan.
+
 ```SQL
 DELETE FROM plan WHERE id = 12;
 ```
@@ -183,7 +193,7 @@ DELETE FROM plan WHERE id = 12;
 As we browse our application, we might want to take a look at all planned Experiences belonging to Plans within one specific country. This is done by:
 
 ```sql
-SELECT * FROM 
+SELECT * FROM
 (experience INNER JOIN plan ON (experience.plan = plan.id)) AS z
 WHERE z.country = 'SWE';
 ```
@@ -217,16 +227,18 @@ The application assumes that PostgreSQL is installed and configured with these c
 
 The script which connects, populates the database with its relations and with dummy data is written in python and will be supplied.
 
-To run the application simply:
+To run the application, you need a Postgres database running with the user "postgres" and password "pw" and simply:
 
 1. Clone the repo
 2. cd into repo
-3. Run npm install
-4. cd python
-5. python3 py.main
-6. npm start
-7. cd to client
-8. npm start
-9. Navigate to localhost:3000
-10. Plan your next amazing vacation.
-11. Enjoy
+3. Run `npm install`
+4. `cd python`
+5. `python3 py.main`
+6. `cd ../client`
+7. `npm install`
+8. `npm start`
+9. `cd ..`
+10. `npm start`
+11. Navigate to localhost:3000
+12. Plan your next amazing vacation.
+13. Enjoy
